@@ -1,4 +1,13 @@
-FROM ubuntu:22.04
+# Base Image: https://hub.docker.com/r/osrf/ros/tags?page=1&name=humble
+FROM osrf/ros:humble-desktop-full AS amd64
+# Base Image: https://hub.docker.com/r/arm64v8/ros/tags?page=1&name=humble
+FROM arm64v8/ros:humble AS arm64
+
+# Use docker automatic platform args to select the base image.
+# It may be `arm64` or `amd64` depending on the platform.
+# Ref: https://docs.docker.com/reference/dockerfile/#automatic-platform-args-in-the-global-scope
+FROM $TARGETARCH
+ARG TARGETARCH
 
 LABEL org.opencontainers.image.authors="yuzhong1214@gmail.com"
 
@@ -56,12 +65,6 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=private \
 #     $OTHER_PACKAGES \
 #     && rm -rf /var/lib/apt/lists/*
 
-# Install tzdata
-RUN --mount=type=cache,target=/var/cache/apt,sharing=private \
-    apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    tzdata \
-    && rm -rf /var/lib/apt/lists/*
-
 USER $USERNAME
 
 # Create Gazebo cache directory with correct ownership to avoid permission issues after volume mount
@@ -72,12 +75,6 @@ RUN mkdir /home/$USERNAME/.gazebo
 # Install custom environment
 RUN git clone https://github.com/YuZhong-Chen/.setup_env.git ~/.setup_env \
     && cd ~/.setup_env && ./install.sh
-
-# Install opencv
-RUN --mount=type=cache,target=/var/cache/apt,sharing=private \
-    sudo apt-get update && sudo apt-get install -y \
-    libopencv-dev \
-    && sudo rm -rf /var/lib/apt/lists/*
 
 COPY .bashrc /home/$USERNAME/.bashrc
 # TODO: Copy additional files here
