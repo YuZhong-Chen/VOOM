@@ -6,8 +6,14 @@
 !/dataset/.gitkeep
 !/dataset/dataset_url.txt
 
-# Executables
+# Compiled Object files and others
 /bin
-
-# Compiled Object files
 /build
+/lib
+/Vocabulary/ORBvoc.txt
+
+# Thirdparty build and lib
+/Thirdparty/DBoW2/build
+/Thirdparty/DBoW2/lib
+/Thirdparty/g2o/build
+/Thirdparty/g2o/lib
