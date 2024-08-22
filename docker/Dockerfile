@@ -56,6 +56,12 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=private \
 #     $OTHER_PACKAGES \
 #     && rm -rf /var/lib/apt/lists/*
 
+# Install tzdata
+RUN --mount=type=cache,target=/var/cache/apt,sharing=private \
+    apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    tzdata \
+    && rm -rf /var/lib/apt/lists/*
+
 USER $USERNAME
 
 # Create Gazebo cache directory with correct ownership to avoid permission issues after volume mount
@@ -66,6 +72,12 @@ RUN mkdir /home/$USERNAME/.gazebo
 # Install custom environment
 RUN git clone https://github.com/YuZhong-Chen/.setup_env.git ~/.setup_env \
     && cd ~/.setup_env && ./install.sh
+
+# Install opencv
+RUN --mount=type=cache,target=/var/cache/apt,sharing=private \
+    sudo apt-get update && sudo apt-get install -y \
+    libopencv-dev \
+    && sudo rm -rf /var/lib/apt/lists/*
 
 COPY .bashrc /home/$USERNAME/.bashrc
 # TODO: Copy additional files here
