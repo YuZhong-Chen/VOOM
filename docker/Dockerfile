@@ -74,7 +74,40 @@ RUN mkdir /home/$USERNAME/.gazebo
 
 # Install custom environment
 RUN git clone https://github.com/YuZhong-Chen/.setup_env.git ~/.setup_env \
-    && cd ~/.setup_env && ./install.sh
+    && cd ~/.setup_env && ./install.sh ros2
+
+# Install Pangolin. (This is used for visualizing 3D data, not necessary)
+RUN cd ~ && git clone --recursive https://github.com/stevenlovegrove/Pangolin.git
+RUN --mount=type=cache,target=/var/cache/apt,sharing=private \
+    sudo apt-get update && sudo apt-get install -y --no-install-suggests --no-install-recommends \
+    libgl1-mesa-dev \
+    libwayland-dev \
+    libxkbcommon-dev \
+    wayland-protocols \
+    libegl1-mesa-dev \
+    libc++-dev \
+    libepoxy-dev \
+    libglew-dev \
+    libeigen3-dev \
+    cmake \
+    g++ \ 
+    ninja-build \
+    libjpeg-dev \
+    libpng-dev \
+    catch2 \
+    libavcodec-dev \
+    libavutil-dev \
+    libavformat-dev \
+    libswscale-dev \
+    libavdevice-dev \
+    libdc1394-dev \
+    libraw1394-dev \
+    libopenni-dev \
+    python3-dev \
+    && sudo rm -rf /var/lib/apt/lists/*
+RUN cd ~/Pangolin \
+    && cmake -B build -GNinja \
+    && cmake --build build
 
 COPY .bashrc /home/$USERNAME/.bashrc
 # TODO: Copy additional files here
