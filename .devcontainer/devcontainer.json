@@ -1,0 +1,25 @@
+/* Reference: https://aka.ms/devcontainer.json */
+{
+    "name": "VOOM",
+    "dockerComposeFile": "../docker/compose.yaml",
+    "service": "voom",
+    // workspace settings
+    "workspaceFolder": "/home/user/VOOM",
+    // Vscode extensions
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-themes",
+                "twxs.cmake",
+                "donjayamanne.python-extension-pack",
+                "eamodio.gitlens",
+                "mhutchie.git-graph",
+                "streetsidesoftware.code-spell-checker",
+                "ms-iot.vscode-ros",
+                "oderwat.indent-rainbow",
+                "ms-python.black-formatter"
+            ]
+        }
+    },
+}
