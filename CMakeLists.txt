@@ -23,7 +23,8 @@ LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
 #   endif()
 #endif()
 
-find_package(OpenCV 3.0 QUIET)
+# set(OpenCV_DIR /usr/include/opencv4)
+find_package(OpenCV 4.0 QUIET)
 if(NOT OpenCV_FOUND)
    find_package(OpenCV 2.4.3 QUIET)
    if(NOT OpenCV_FOUND)
@@ -42,7 +43,8 @@ set(JSON_BuildTests OFF CACHE INTERNAL "")
 add_subdirectory(Thirdparty/json)
 
 # Dlib
-find_package(dlib REQUIRED)
+add_subdirectory(./Thirdparty/dlib)
+# find_package(dlib REQUIRED)
 
 include_directories(
 ${PROJECT_SOURCE_DIR}
