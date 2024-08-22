@@ -1,2 +1,13 @@
 # Visual Studio Code
 .vscode
+
+# Dataset
+/dataset/*
+!/dataset/.gitkeep
+!/dataset/dataset_url.txt
+
+# Executables
+/bin
+
+# Compiled Object files
+/build
