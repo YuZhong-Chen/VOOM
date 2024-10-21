@@ -23,10 +23,14 @@ cd /bin
 
 ./rgbd_diamond_with_ellipse ../Vocabulary/ORBvoc.txt ../Cameras/diamond_walk.yaml /home/yutong/data/diamond_dji_for_test ../Data/diamond_dji/diamond_dji_associated.txt ../Data/diamond_dji/detections_yolov8x_seg_diamond_dji_with_ellipse.json points diamond_dji
 
-./rgbd_tum_with_ellipse ../Vocabulary/ORBvoc.txt ../Cameras/TUM2.yaml \
-    ../dataset/rgbd_dataset_freiburg2_desk ../Data/fr2_desk/fr2_desk.txt \
+./rgbd_tum_with_ellipse \
+    ../Vocabulary/ORBvoc.txt \
+    ../Cameras/TUM2.yaml \
+    ../dataset/rgbd_dataset_freiburg2_desk \
+    ../Data/fr2_desk/fr2_desk.txt \
     ../Data/fr2_desk/detections_yolov8x_seg_tum_rgbd_fr2_desk_with_ellipse.json \
-    points fr2_desk
+    objects \
+    fr2_desk
 
 
 
